@@ -1,0 +1,19 @@
+-- Habilitar suporte a chaves estrangeiras no SQLite (por padrão vem desativado)
+PRAGMA foreign_keys = ON;
+
+-- Criação da Tabela de Categorias
+CREATE TABLE tb_categoria (
+    id_categoria INTEGER PRIMARY KEY AUTOINCREMENT,
+    nome VARCHAR(50) NOT NULL UNIQUE
+);
+
+-- Criação da Tabela de Notas com integridade referencial
+CREATE TABLE tb_nota (
+    id_nota INTEGER PRIMARY KEY AUTOINCREMENT,
+    titulo VARCHAR(100) NOT NULL,
+    conteudo TEXT NOT NULL,
+    data_criacao DATETIME DEFAULT CURRENT_TIMESTAMP,
+    id_categoria INTEGER NOT NULL,
+    FOREIGN KEY (id_categoria) REFERENCES tb_categoria(id_categoria)
+        ON DELETE CASCADE
+);
